@@ -2,30 +2,25 @@ import React from 'react';
 import { createAppComponent, createAppContainer } from  'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import MainScreen from './src/screens/MainScreen'
+import Intro from './src/screens/Intro'
 import {StyleSheet} from 'react-native'
 
 
 const navigator = createStackNavigator({
+  Intro : Intro,
   Main : MainScreen,
 },
 {
-  initialRouteName: 'Main',
+  initialRouteName: 'Intro',
   defaultNavigationOptions : {
-    title: 'Main'
+    title: 'Main',
+    
   },
   screenOptions :{
     headerStyle: { elevation: 0 },
-    cardStyle: { backgroundColor: 'red' }}
+    cardStyle: { backgroundColor: 'gray' }}
   }
 );
-
-const styles = StyleSheet.create({
-  main: {
-    backgroundColor: 'red'
-  }
-})
-
-
 
 export default createAppContainer(navigator);
 
