@@ -20,7 +20,7 @@ const Intro = ({navigation}) => {
         return <Text>Loading...</Text>;
         } else {
     return (
-        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Main')}>
+        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Tarot')}>
             <View style={styles.draw}>
                 <Animatable.Text 
                             animation="pulse" 

@@ -1,7 +1,6 @@
 import React, {useState} from  'react';
-import { View,Text, StyleSheet, Image, TouchableOpacity, Modal} from 'react-native';
+import { View,Text, StyleSheet, Image, TouchableOpacity, Modal, ScrollView, Button} from 'react-native';
 import { createNavigator } from 'react-navigation';
-import cardsArray from '../cards-folder/cardsArray';
 import cardsObject from '../cards-folder/cardsObject';
 
 import contentArray from '../cards-meanings/Content';
@@ -10,16 +9,57 @@ import {
     Lustria_400Regular,
     } from '@expo-google-fonts/lustria';
 import * as Animatable from 'react-native-animatable';
-// MyCustomComponent = Animatable.createAnimatableComponent(MyCustomComponent);
-
-// const backCard = require('../cards-folder/back.png')
-
-// console.log(cardsObject[num].card)
 
 const MainScreen = ({navigation}) => {
 
-    const [number, setCard] = useState()
+    const [chosenNumber, setChosenNumber] = useState()
+
+    const listOfNames = (cards) => {
+        let tarot_cards = [];
+            for (let i=0; i < cards.length; i+=1) {
+            tarot_cards.push(cards[i].name);
+        }
+        return tarot_cards;
+    }
+    const listNames = listOfNames(cardsObject);
+
+    const listOfImages = (cards) => {
+        let tarot_cards = [];
+            for (let i=0; i < cards.length; i+=1) {
+            tarot_cards.push(cards[i].cardImage);
+        }
+        return tarot_cards;
+    }
+
+    const listImages = listOfImages(cardsObject);
+
+    const listOfKeywords = (cards) => {
+        let tarot_cards = [];
+            for (let i=0; i < cards.length; i+=1) {
+            tarot_cards.push(cards[i].keywords);
+        }
+        return tarot_cards;
+    }
+
+    const listKeywords = listOfKeywords(cardsObject);
     
+    const listOfContent = (cards) => {
+        let tarot_cards = [];
+            for (let i=0; i < cards.length; i+=1) {
+            tarot_cards.push(cards[i].content);
+        }
+        return tarot_cards;
+    }
+
+    const listContent = listOfContent(cardsObject);
+
+    const tarotName = listNames[chosenNumber];
+    const tarotImage= listImages[chosenNumber];
+    const tarotKeywords = listKeywords[chosenNumber];
+    const tarotContent = listContent[chosenNumber];
+
+
+    ///MODALS STATES
 
     const [drawVisible, setDrawVisible] = useState(true);
     const [cardVisible, setCardVisible] = useState(false);
@@ -30,17 +70,11 @@ const MainScreen = ({navigation}) => {
         });
 
     const shuffle = ()=> {
-        setCard(() => {
-            let random = [Math.floor(Math.random() * cardsObject.length)];
-            return random
-        })
+        setChosenNumber(() => {
+            let random = Number(Math.floor(Math.random() * cardsObject.length));
+            return random          
+        })        
     }
-
-    console.log(number)
-
-    // const chosenCard = cardsObject[number].card
-
-    console.log(`HEEEEELOOOOO` , cardsObject[number].card)
 
     if (!fontsLoaded) {
         return <Text>Loading...</Text>;
@@ -57,11 +91,10 @@ const MainScreen = ({navigation}) => {
                             <TouchableOpacity style={styles.draw} 
                             onPress={
                                 ()=>{
-                                        shuffle();
-                                        setDrawVisible(false);
-                                        setTimeout(()=> setCardVisible(true), 800)
-                                        setTimeout(()=> setContentVisible(true),2000)
-                                        
+                                shuffle();
+                                setDrawVisible(false);
+                                setTimeout(()=> setCardVisible(true), 800)
+                                setTimeout(()=> setContentVisible(true),1600)
                                 }
                                 }>
                                 <Text style={styles.titleDraw}> Draw a Card </Text>
@@ -75,11 +108,18 @@ const MainScreen = ({navigation}) => {
                             transparent={true}
                             visible={cardVisible}
                             >
-                            <Image style={styles.card}  />
+                            <Image style={styles.tarotImage} source={tarotImage} />
                             {contentVisible ? 
-                            <View style={styles.content}>
-                                <Text style={styles.contentText}>{contentArray}</Text>
-                            </View> 
+                            <>
+                            <ScrollView style={styles.contentContainer}>
+                                <Text style={styles.tarotName}>{tarotName}</Text>
+                                <Text style={styles.tarotKeywords}>{tarotKeywords}</Text>
+                                <Text style={styles.tarotContent}>{tarotContent}</Text>
+                            </ScrollView> 
+                            <TouchableOpacity style={styles.btnAskAgain} title='Ask Again' onPress={() => {navigation.navigate('Welcome')}}>
+                                <Text style={styles.textAskAgain}>Ask Again</Text>
+                            </TouchableOpacity>
+                            </>
                             : null}
                         </Modal>
                     
@@ -109,18 +149,12 @@ const styles = StyleSheet.create({
     title:{
         fontSize: 30,
         textAlign: 'center',
-        marginTop: 50,
+        marginTop: 30,
         fontFamily: 'Lustria_400Regular',
-    },
-    card: {
-        height: 400,
-        width: 230,
-        marginTop: 200,
-        alignSelf:'center',
     },
     containerDraw: {
         alignSelf:'center',
-        marginTop: 150,
+        marginTop: 180,
     },
     draw:{ 
         width: 250,
@@ -138,7 +172,13 @@ const styles = StyleSheet.create({
         fontSize: 30,
         textAlign: 'center',
     },
-    content: {
+    tarotImage: {
+        height: 350,
+        width: 200,
+        marginTop: 190,
+        alignSelf:'center'
+    },
+    contentContainer: {
         borderWidth: 1,
         borderRadius: 10,
         borderColor: '#000',
@@ -147,10 +187,45 @@ const styles = StyleSheet.create({
         height: 200,
         alignSelf:'center',
         marginTop: 30,
+        marginBottom: 30,
     },
-    contentText: {
-        textAlign: 'justify',
+    tarotName: {
+        fontSize: 20,
+        textAlign: 'left',
+        fontFamily: 'Lustria_400Regular',
+        paddingLeft: 20,
+        paddingTop: 15,
+        fontWeight: 'bold',
+    },
+    tarotKeywords: {
+        textAlign: 'left',
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingTop: 10,
+        fontFamily: 'Lustria_400Regular',
+        fontSize: 14,
+        fontWeight: 'bold',
+        fontStyle: 'italic',
+        textDecorationLine: 'underline'
+
+    },
+    tarotContent: {
+        textAlign: 'left',
         padding: 20,
+        fontFamily: 'Lustria_400Regular',
+        fontSize: 14,
+    },
+    btnAskAgain: {
+        borderWidth: 1,
+        borderRadius: 5,
+        marginBottom:70, 
+        paddingVertical: 15,
+        paddingHorizontal: 30,
+        alignSelf:'center',
+        backgroundColor: '#83daf7',
+        fontFamily: 'Lustria_400Regular',
+    },
+    textAskAgain: {
         fontFamily: 'Lustria_400Regular',
         fontSize: 14,
     }

@@ -1,20 +1,20 @@
 import React from 'react';
-import { createAppComponent, createAppContainer } from  'react-navigation'
-import { createStackNavigator } from 'react-navigation-stack'
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 import MainScreen from './src/screens/MainScreen'
 import Intro from './src/screens/Intro'
 import {StyleSheet} from 'react-native'
 
 
 const navigator = createStackNavigator({
-  Intro : Intro,
-  Main : MainScreen,
+  Welcome : Intro,
+  Tarot : MainScreen,
 },
 {
-  initialRouteName: 'Intro',
+  initialRouteName: 'Welcome',
   defaultNavigationOptions : {
-    title: 'Main',
-    
+    title:'Welcome',
+    title: 'Tarot'
   },
   screenOptions :{
     headerStyle: { elevation: 0 },
@@ -23,4 +23,3 @@ const navigator = createStackNavigator({
 );
 
 export default createAppContainer(navigator);
-
