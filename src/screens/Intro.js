@@ -7,8 +7,6 @@ import {
     } from '@expo-google-fonts/lustria';
 import * as Animatable from 'react-native-animatable';
 
-
-
 const Intro = ({navigation}) => {
     
     const [fontsLoaded] = useFonts({
@@ -20,7 +18,7 @@ const Intro = ({navigation}) => {
         return <Text>Loading...</Text>;
         } else {
     return (
-        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Tarot')}>
+        <TouchableOpacity style={styles.introContainer} onPress={() => navigation.navigate('MainScreen')}>
             <View style={styles.draw}>
                 <Animatable.Text 
                             animation="pulse" 
@@ -30,19 +28,20 @@ const Intro = ({navigation}) => {
                 <Text style={styles.titleDraw}> Take a Deep Breath </Text>
                 </Animatable.Text>
             </View>
-        </TouchableOpacity>
+            </TouchableOpacity>
     )
         }
 }
 
 const styles = StyleSheet.create({
-    container: {
+
+    introContainer: {
         backgroundColor: '#e8e4d9',
         width: '100%',
-        height: '100%'
+        height: '100%',
     },
     draw:{ 
-        marginTop: 250,
+        marginTop: 150,
         width: 250,
         height: 250,
         borderRadius: 250/2,

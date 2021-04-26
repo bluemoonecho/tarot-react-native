@@ -2,18 +2,33 @@ import React, {useState} from  'react';
 import { View,Text, StyleSheet, Image, TouchableOpacity, Modal, ScrollView, Button} from 'react-native';
 import { createNavigator } from 'react-navigation';
 import cardsObject from '../cards-folder/cardsObject';
-
-import contentArray from '../cards-meanings/Content';
 import {
     useFonts,
     Lustria_400Regular,
     } from '@expo-google-fonts/lustria';
 import * as Animatable from 'react-native-animatable';
 
+import {
+    createModalNavigator,
+    ModalScreenProps,
+  } from 'react-navigation-native-modal';
+
+
 const MainScreen = ({navigation}) => {
 
-    const [chosenNumber, setChosenNumber] = useState()
+    const [fontsLoaded] = useFonts({
+        Lustria_400Regular,
+        });
+/// shuffle function 
 
+const shuffle = ()=> {
+    setChosenNumber(() => {
+        let random = Number(Math.floor(Math.random() * cardsObject.length));
+        return random          
+    })        
+}
+/// Choose Number
+    const [chosenNumber, setChosenNumber] = useState()
     const listOfNames = (cards) => {
         let tarot_cards = [];
             for (let i=0; i < cards.length; i+=1) {
@@ -21,8 +36,8 @@ const MainScreen = ({navigation}) => {
         }
         return tarot_cards;
     }
+/// Choose Name
     const listNames = listOfNames(cardsObject);
-
     const listOfImages = (cards) => {
         let tarot_cards = [];
             for (let i=0; i < cards.length; i+=1) {
@@ -30,9 +45,8 @@ const MainScreen = ({navigation}) => {
         }
         return tarot_cards;
     }
-
+/// Choose Image
     const listImages = listOfImages(cardsObject);
-
     const listOfKeywords = (cards) => {
         let tarot_cards = [];
             for (let i=0; i < cards.length; i+=1) {
@@ -40,9 +54,8 @@ const MainScreen = ({navigation}) => {
         }
         return tarot_cards;
     }
-
+/// Choose Keywords
     const listKeywords = listOfKeywords(cardsObject);
-    
     const listOfContent = (cards) => {
         let tarot_cards = [];
             for (let i=0; i < cards.length; i+=1) {
@@ -50,51 +63,62 @@ const MainScreen = ({navigation}) => {
         }
         return tarot_cards;
     }
-
+////Creating the Variable to be shown
     const listContent = listOfContent(cardsObject);
-
     const tarotName = listNames[chosenNumber];
     const tarotImage= listImages[chosenNumber];
     const tarotKeywords = listKeywords[chosenNumber];
     const tarotContent = listContent[chosenNumber];
 
-
     ///MODALS STATES
-
     const [drawVisible, setDrawVisible] = useState(true);
-    const [cardVisible, setCardVisible] = useState(false);
+    const [imageVisible, setImageVisible] = useState(false);
     const [contentVisible, setContentVisible] = useState(false);
 
-    const [fontsLoaded] = useFonts({
-        Lustria_400Regular,
-        });
 
-    const shuffle = ()=> {
-        setChosenNumber(() => {
-            let random = Number(Math.floor(Math.random() * cardsObject.length));
-            return random          
-        })        
+// Modal Navigators
+    const [imageIndex, setImageIndex] = useState(0)
+    const [contentIndex, setContentIndex] = useState(1)
+
+
+    const handleImageIndex = () => {
+        imageIndex <= contentIndex ? setImageIndex(contentIndex + 1) : setImageIndex(0)
     }
 
+    const handleContentIndex = () => {
+        contentIndex <= imageIndex ? setContentIndex(imageIndex + 1) : setContentIndex(1)
+    }
+
+
+    // const confirmHandler
+
+    // const [activeBtn, setActiveBtn] = useState(100);
+    // const confirmHandler = () => {s
+    //     setActiveBtn(0);
+    // };
+    console.log(imageIndex, contentIndex)
+
     if (!fontsLoaded) {
-        return <Text>Loading...</Text>;
+        return <Text>Loading...</Text>
         } else {
-            return <View style={styles.container}>
+            return (
+            <>
+            <View style={styles.container}>
                     <Text style={styles.title}> 🔮 Ask a Question 💫 </Text>
                     {drawVisible ? 
                     <View style={styles.containerDraw}>
                         <Animatable.Text 
-                        animation="pulse" 
-                        iterationCount='infinite' 
-                        easing="ease-in"
-                        direction="alternate">
+                            animation="pulse" 
+                            iterationCount='infinite' 
+                            easing="ease-in"
+                            direction="alternate">
                             <TouchableOpacity style={styles.draw} 
                             onPress={
                                 ()=>{
                                 shuffle();
                                 setDrawVisible(false);
-                                setTimeout(()=> setCardVisible(true), 800)
-                                setTimeout(()=> setContentVisible(true),1600)
+                                setTimeout(()=> setImageVisible(true), 800)
+                                setTimeout(()=> setContentVisible(true),2300)
                                 }
                                 }>
                                 <Text style={styles.titleDraw}> Draw a Card </Text>
@@ -106,38 +130,42 @@ const MainScreen = ({navigation}) => {
                             animationType="fade"
                             easing="easeIn"
                             transparent={true}
-                            visible={cardVisible}
+                            visible={imageVisible}
                             >
+                            <TouchableOpacity onPress={()=> handleImageIndex()} style={[styles.changeImageIndex, {zIndex: imageIndex}]}>
                             <Image style={styles.tarotImage} source={tarotImage} />
-                            {contentVisible ? 
-                            <>
-                            <ScrollView style={styles.contentContainer}>
-                                <Text style={styles.tarotName}>{tarotName}</Text>
-                                <Text style={styles.tarotKeywords}>{tarotKeywords}</Text>
-                                <Text style={styles.tarotContent}>{tarotContent}</Text>
-                            </ScrollView> 
-                            <TouchableOpacity style={styles.btnAskAgain} title='Ask Again' onPress={() => {navigation.navigate('Welcome')}}>
-                                <Text style={styles.textAskAgain}>Ask Again</Text>
                             </TouchableOpacity>
-                            </>
-                            : null}
+                        {contentVisible ?                           
+                        <View>  
+                            
+                                <ScrollView 
+                                style={styles.contentContainer}
+                                keyboardShouldPersistTaps={'always'}
+                                >
+                                <TouchableOpacity 
+                                onPress={handleContentIndex} 
+                                style={[styles.changeContentIndex, {zIndex: contentIndex}]}>
+                                    <Text style={styles.tarotName}>{tarotName}</Text>
+                                    <Text style={styles.tarotKeywords}>{tarotKeywords}</Text>
+                                    <Text style={styles.tarotContent}>{tarotContent}</Text>
+                                    </TouchableOpacity>
+                                </ScrollView> 
+                            
+                        <TouchableOpacity style={styles.btnAskAgain} title='Ask Again' onPress={() => navigation.navigate('Intro')}>
+                                <Text style={styles.textAskAgain}>Ask Again</Text>
+                        </TouchableOpacity>
+                        </View>
+                        : null}
                         </Modal>
+
+                        {/* <View style={[styles.container, {backgroundColor: activeBtn}]}/> */}
+
                     
-                </View>
-                
+            </View>
+            </>
+            )
         }
 }
-
-{/* <Modal
-animationType="fade"
-transparent={true}
-visible={dislikeVisible}>
-<MaterialCommunityIcons
-style={styles.dislikeAction}
-name={'minus'}
-size={200}
-/> */}
-
 
 const styles = StyleSheet.create({
     container : {
@@ -149,12 +177,12 @@ const styles = StyleSheet.create({
     title:{
         fontSize: 30,
         textAlign: 'center',
-        marginTop: 30,
+        marginTop: 50,
         fontFamily: 'Lustria_400Regular',
     },
     containerDraw: {
         alignSelf:'center',
-        marginTop: 180,
+        marginTop: 90,
     },
     draw:{ 
         width: 250,
@@ -175,8 +203,8 @@ const styles = StyleSheet.create({
     tarotImage: {
         height: 350,
         width: 200,
-        marginTop: 190,
-        alignSelf:'center'
+        marginTop: 130,
+        alignSelf:'center',
     },
     contentContainer: {
         borderWidth: 1,
@@ -186,9 +214,9 @@ const styles = StyleSheet.create({
         width: 300,
         height: 200,
         alignSelf:'center',
-        marginTop: 30,
+        marginTop: -100,
         marginBottom: 30,
-    },
+        },
     tarotName: {
         fontSize: 20,
         textAlign: 'left',
