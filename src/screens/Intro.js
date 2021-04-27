@@ -23,7 +23,7 @@ const Intro = ({navigation}) => {
                 <Animatable.Text 
                             animation="pulse" 
                             iterationCount='infinite' 
-                            easing="ease-in"
+                            easing="ease-out"
                             direction="alternate">
                 <Text style={styles.titleDraw}> Take a Deep Breath </Text>
                 </Animatable.Text>
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     draw:{ 
-        marginTop: 150,
+        marginTop: 175,
         width: 250,
         height: 250,
         borderRadius: 250/2,

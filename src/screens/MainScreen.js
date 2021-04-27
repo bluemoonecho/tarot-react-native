@@ -7,12 +7,7 @@ import {
     Lustria_400Regular,
     } from '@expo-google-fonts/lustria';
 import * as Animatable from 'react-native-animatable';
-
-import {
-    createModalNavigator,
-    ModalScreenProps,
-  } from 'react-navigation-native-modal';
-
+import { motion } from "framer-motion";
 
 const MainScreen = ({navigation}) => {
 
@@ -76,26 +71,18 @@ const shuffle = ()=> {
     const [contentVisible, setContentVisible] = useState(false);
 
 
-// Modal Navigators
+// IMAGE INDEX
     const [imageIndex, setImageIndex] = useState(0)
     const [contentIndex, setContentIndex] = useState(1)
-
-
     const handleImageIndex = () => {
         imageIndex <= contentIndex ? setImageIndex(contentIndex + 1) : setImageIndex(0)
     }
-
     const handleContentIndex = () => {
         contentIndex <= imageIndex ? setContentIndex(imageIndex + 1) : setContentIndex(1)
     }
 
+    const [isActive, setIsActive] = useState(false);
 
-    // const confirmHandler
-
-    // const [activeBtn, setActiveBtn] = useState(100);
-    // const confirmHandler = () => {s
-    //     setActiveBtn(0);
-    // };
     console.log(imageIndex, contentIndex)
 
     if (!fontsLoaded) {
@@ -133,7 +120,11 @@ const shuffle = ()=> {
                             visible={imageVisible}
                             >
                             <TouchableOpacity onPress={()=> handleImageIndex()} style={[styles.changeImageIndex, {zIndex: imageIndex}]}>
+                            <Animatable.View
+                            animation="bounce"
+                            easing="ease-in" >
                             <Image style={styles.tarotImage} source={tarotImage} />
+                            </Animatable.View>
                             </TouchableOpacity>
                         {contentVisible ?                           
                         <View>  
