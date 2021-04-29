@@ -1,5 +1,5 @@
 import React, {useState} from  'react';
-import { View,Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {ImageBackground, View,Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import { createNavigator } from 'react-navigation';
 import {
     useFonts,
@@ -7,41 +7,56 @@ import {
     } from '@expo-google-fonts/lustria';
 import * as Animatable from 'react-native-animatable';
 
+
+
 const Intro = ({navigation}) => {
     
     const [fontsLoaded] = useFonts({
         Lustria_400Regular,
         });
 
+    // const background = require(`../cards-folder/tarot-back.png`);
+
 
     if (!fontsLoaded) {
         return <Text>Loading...</Text>;
         } else {
     return (
-        <TouchableOpacity style={styles.introContainer} onPress={() => navigation.navigate('MainScreen')}>
-            <View style={styles.draw}>
-                <Animatable.Text 
-                            animation="pulse" 
-                            iterationCount='infinite' 
-                            easing="ease-out"
-                            direction="alternate">
-                <Text style={styles.titleDraw}> Take a Deep Breath </Text>
-                </Animatable.Text>
+            <View style={styles.introContainer} >
+                <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('MainScreen')}>
+                    <View style={styles.draw}>
+                        <Animatable.Text 
+                                    animation="pulse" 
+                                    iterationCount='infinite' 
+                                    easing="ease-out"
+                                    direction="alternate">
+                        <Text style={styles.titleDraw}> Take a Deep Breath </Text>
+                        </Animatable.Text>
+                    </View>
+                </TouchableOpacity>              
             </View>
-            </TouchableOpacity>
     )
         }
 }
 
 const styles = StyleSheet.create({
-
+    imageBackground: {
+        flex: 1,
+        justifyContent: "center",
+        width: '100%',
+        height: '100%',
+    },
+    container: {
+        marginTop: 50,
+        alignSelf:'center',
+        top: '25%'
+    },
     introContainer: {
         backgroundColor: '#e8e4d9',
         width: '100%',
         height: '100%',
     },
     draw:{ 
-        marginTop: 175,
         width: 250,
         height: 250,
         borderRadius: 250/2,

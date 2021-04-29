@@ -11,6 +11,7 @@
     "@expo-google-fonts/dev": "^0.1.0",
     "@expo-google-fonts/inter": "^0.1.0",
     "@expo-google-fonts/lustria": "^0.1.0",
+    "@expo/match-media": "^0.1.0",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/native": "^5.9.4",
     "expo": "~41.0.0",
@@ -30,7 +31,8 @@
     "react-native-web": "~0.13.12",
     "react-navigation": "^4.4.4",
     "react-navigation-native-modal": "^0.1.6",
-    "react-navigation-stack": "^2.10.4"
+    "react-navigation-stack": "^2.10.4",
+    "react-responsive": "^8.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

@@ -1,13 +1,14 @@
 import React, {useState} from  'react';
-import { View,Text, StyleSheet, Image, TouchableOpacity, Modal, ScrollView, Button} from 'react-native';
-import { createNavigator } from 'react-navigation';
+import { View,Text, StyleSheet, Image, TouchableOpacity, Modal, ScrollView} from 'react-native';
 import cardsObject from '../cards-folder/cardsObject';
+import CardAnimation from '../components/CardAnimation';
 import {
     useFonts,
     Lustria_400Regular,
     } from '@expo-google-fonts/lustria';
 import * as Animatable from 'react-native-animatable';
-import { motion } from "framer-motion";
+// import '@expo/match-media'
+// import { useMediaQuery } from "react-responsive";
 
 const MainScreen = ({navigation}) => {
 
@@ -81,7 +82,16 @@ const shuffle = ()=> {
         contentIndex <= imageIndex ? setContentIndex(imageIndex + 1) : setContentIndex(1)
     }
 
-    const [isActive, setIsActive] = useState(false);
+    const [animationVisible, setAnimationVisble] = useState(false)
+
+    const handleDraw = () => {
+        shuffle()
+        setDrawVisible(false)
+        setAnimationVisble(true) 
+        setTimeout(()=> setAnimationVisble(false), 2000)    
+        setTimeout(()=> setImageVisible(true), 2200)
+        setTimeout(()=> setContentVisible(true),3300)
+    }
 
     console.log(imageIndex, contentIndex)
 
@@ -93,32 +103,32 @@ const shuffle = ()=> {
             <View style={styles.container}>
                     <Text style={styles.title}> 🔮 Ask a Question 💫 </Text>
                     {drawVisible ? 
-                    <View style={styles.containerDraw}>
-                        <Animatable.Text 
-                            animation="pulse" 
-                            iterationCount='infinite' 
-                            easing="ease-in"
-                            direction="alternate">
-                            <TouchableOpacity style={styles.draw} 
-                            onPress={
-                                ()=>{
-                                shuffle();
-                                setDrawVisible(false);
-                                setTimeout(()=> setImageVisible(true), 800)
-                                setTimeout(()=> setContentVisible(true),2300)
-                                }
-                                }>
-                                <Text style={styles.titleDraw}> Draw a Card </Text>
-                            </TouchableOpacity>
-                        </Animatable.Text>
-                        </View> 
-                        : null }
+                        <View style={styles.containerDraw}>
+                            <Animatable.Text 
+                                animation="pulse" 
+                                iterationCount='infinite' 
+                                easing="ease-in"
+                                direction="alternate">
+                                <TouchableOpacity style={styles.draw} 
+                                onPress={()=>{handleDraw()}}>
+                                    <Text style={styles.titleDraw}> Draw a Card </Text>
+                                </TouchableOpacity>
+                            </Animatable.Text>
+                            </View> 
+                        : null }    
+                        {animationVisible ? 
+                            <View style={styles.animation}>
+                                <CardAnimation />
+                            </View>
+                        : null }                                                
+                        {!animationVisible ? 
                         <Modal
                             animationType="fade"
                             easing="easeIn"
                             transparent={true}
                             visible={imageVisible}
                             >
+
                             <TouchableOpacity onPress={()=> handleImageIndex()} style={[styles.changeImageIndex, {zIndex: imageIndex}]}>
                             <Animatable.View
                             animation="bounce"
@@ -147,9 +157,9 @@ const shuffle = ()=> {
                         </TouchableOpacity>
                         </View>
                         : null}
+                        
                         </Modal>
-
-                        {/* <View style={[styles.container, {backgroundColor: activeBtn}]}/> */}
+                        : null}
 
                     
             </View>
@@ -165,15 +175,19 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%'
     },
+    animation:{
+        left: 50,
+        top: 0,
+    },
     title:{
         fontSize: 30,
         textAlign: 'center',
-        marginTop: 50,
+        top: 70,
         fontFamily: 'Lustria_400Regular',
     },
     containerDraw: {
         alignSelf:'center',
-        marginTop: 90,
+        top: '25%',
     },
     draw:{ 
         width: 250,
@@ -184,7 +198,6 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         alignSelf:'center',
         justifyContent: 'center',
-        
     },
     titleDraw: {
         fontFamily: 'Lustria_400Regular',

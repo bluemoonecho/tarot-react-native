@@ -27,6 +27,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "A simple tarot app built with react-native\n\n",
+    "githubUrl": "https://github.com/bluemoonecho/tarot-react-native"
   }
 }
