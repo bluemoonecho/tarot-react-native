@@ -40,9 +40,8 @@ const Intro = ({navigation}) => {
 }
 
 const styles = StyleSheet.create({
-    imageBackground: {
-        flex: 1,
-        justifyContent: "center",
+    introContainer: {
+        backgroundColor: '#e8e4d9',
         width: '100%',
         height: '100%',
     },
@@ -51,26 +50,22 @@ const styles = StyleSheet.create({
         alignSelf:'center',
         top: '25%'
     },
-    introContainer: {
-        backgroundColor: '#e8e4d9',
-        width: '100%',
-        height: '100%',
-    },
     draw:{ 
         width: 250,
         height: 250,
-        borderRadius: 250/2,
-        borderWidth: 1,
-        borderColor: '#000',
+        // borderRadius: 250/2,
+        // borderWidth: 1,
+        // borderColor: '#000',
         alignContent: 'center',
         alignSelf:'center',
         justifyContent: 'center',
+        textAlign: 'center',
         
     },
     titleDraw: {
         fontFamily: 'Lustria_400Regular',
         fontSize: 30,
-        textAlign: 'center',
+        textAlign: 'center'
     },
 
 })

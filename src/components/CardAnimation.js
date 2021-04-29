@@ -17,7 +17,7 @@ const CardAnimation = ()=> {
             <View style={styles.imageContainer}>
                 <Animatable.View
                 animation="slideOutLeft" 
-                iterationCount='3'
+                iterationCount={3}
                 easing="ease-out-expo"
                 style={styles.animate}
                 onAnimationEnd={ () => { 
@@ -29,7 +29,7 @@ const CardAnimation = ()=> {
                 </Animatable.View>
                 <Animatable.View
                 animation="slideOutLeft" 
-                iterationCount='3'
+                iterationCount={3}
                 easing="ease-out-expo"
                 style={styles.animate}
                 // direction="alternate"
@@ -42,7 +42,7 @@ const CardAnimation = ()=> {
                 </Animatable.View>
                 <Animatable.View
                 animation="slideInLeft" 
-                iterationCount='3'
+                iterationCount={3}
                 easing="ease-out-expo"
                 style={styles.animate}
                 // direction="alternate"
@@ -65,23 +65,27 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     image1 : {
-        height: 350,
-        width: 200,
+        height: 320,
+        width: 170,
         marginTop: 130,
+        borderWidth: 2,
+        borderColor: 'gray',
     },
     image2 : {
-        height: 350,
-        width: 200,
-        marginTop: -350,
-        marginLeft: 50,
-        
-
+        height: 320,
+        width: 170,
+        marginTop: -320,
+        marginLeft: 60,
+        borderWidth: 1,
+        borderColor: 'gray',
     },
     image3 : {
-        height: 350,
-        width: 200,
-        marginTop: -350,
-        marginLeft: 50,
+        height: 320,
+        width: 170,
+        marginTop: -320,
+        marginLeft: 30,
+        borderWidth: 1,
+        borderColor: 'gray',
     },
     title: {
         marginTop: 100,

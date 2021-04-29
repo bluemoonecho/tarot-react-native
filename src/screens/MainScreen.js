@@ -178,6 +178,7 @@ const styles = StyleSheet.create({
     animation:{
         left: 50,
         top: 0,
+        marginTop: '-8%',
     },
     title:{
         fontSize: 30,
@@ -207,7 +208,7 @@ const styles = StyleSheet.create({
     tarotImage: {
         height: 350,
         width: 200,
-        marginTop: 130,
+        marginTop: '33%',
         alignSelf:'center',
     },
     contentContainer: {
@@ -218,8 +219,8 @@ const styles = StyleSheet.create({
         width: 300,
         height: 200,
         alignSelf:'center',
-        marginTop: -100,
-        marginBottom: 30,
+        marginBottom: '30%',
+        marginTop: '-30%',
         },
     tarotName: {
         fontSize: 20,
@@ -250,7 +251,8 @@ const styles = StyleSheet.create({
     btnAskAgain: {
         borderWidth: 1,
         borderRadius: 5,
-        marginBottom:70, 
+        marginTop: '-23%',
+        marginBottom: '70%', 
         paddingVertical: 15,
         paddingHorizontal: 30,
         alignSelf:'center',
