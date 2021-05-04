@@ -1,5 +1,5 @@
 import React, {useState} from  'react';
-import { View,Text, StyleSheet, Image, TouchableOpacity, Modal, ScrollView} from 'react-native';
+import { View,Text, Image, TouchableOpacity, Modal, ScrollView} from 'react-native';
 import cardsObject from '../cards-folder/cardsObject';
 import CardAnimation from '../components/CardAnimation';
 import {
@@ -7,8 +7,10 @@ import {
     Lustria_400Regular,
     } from '@expo-google-fonts/lustria';
 import * as Animatable from 'react-native-animatable';
-// import '@expo/match-media'
-// import { useMediaQuery } from "react-responsive";
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import StyleSheet from 'react-native-media-query';
+
+
 
 const MainScreen = ({navigation}) => {
 
@@ -89,8 +91,8 @@ const shuffle = ()=> {
         setDrawVisible(false)
         setAnimationVisble(true) 
         setTimeout(()=> setAnimationVisble(false), 2000)    
-        setTimeout(()=> setImageVisible(true), 2200)
-        setTimeout(()=> setContentVisible(true),3300)
+        setTimeout(()=> setImageVisible(true), 2000)
+        setTimeout(()=> setContentVisible(true),4000)
     }
 
     console.log(imageIndex, contentIndex)
@@ -128,7 +130,6 @@ const shuffle = ()=> {
                             transparent={true}
                             visible={imageVisible}
                             >
-
                             <TouchableOpacity onPress={()=> handleImageIndex()} style={[styles.changeImageIndex, {zIndex: imageIndex}]}>
                             <Animatable.View
                             animation="bounce"
@@ -157,7 +158,7 @@ const shuffle = ()=> {
                         </TouchableOpacity>
                         </View>
                         : null}
-                        
+                    
                         </Modal>
                         : null}
 
@@ -168,27 +169,33 @@ const shuffle = ()=> {
         }
 }
 
-const styles = StyleSheet.create({
+const {ids, styles} = StyleSheet.create({
     container : {
         flex: 1,
         backgroundColor: '#e8e4d9',
         width: '100%',
-        height: '100%'
+        height: '100%',
+        flexBasis: 'auto',
+        flexDirection: 'column',
+        // justifyContent: 'center',
     },
     animation:{
+        flex: 1,
         left: 50,
         top: 0,
-        marginTop: '-8%',
+        marginTop: '10%',
     },
     title:{
+        
         fontSize: 30,
         textAlign: 'center',
-        top: 70,
+        top: '8%',
         fontFamily: 'Lustria_400Regular',
     },
     containerDraw: {
+        
         alignSelf:'center',
-        top: '25%',
+        top: '25%'
     },
     draw:{ 
         width: 250,
@@ -212,12 +219,13 @@ const styles = StyleSheet.create({
         alignSelf:'center',
     },
     contentContainer: {
+        flexWrap: 'wrap',
         borderWidth: 1,
         borderRadius: 10,
         borderColor: '#000',
         backgroundColor: 'white',
-        width: 300,
-        height: 200,
+        width: '75%',
+        height: '30%',
         alignSelf:'center',
         marginBottom: '30%',
         marginTop: '-30%',
@@ -240,7 +248,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontStyle: 'italic',
         textDecorationLine: 'underline'
-
     },
     tarotContent: {
         textAlign: 'left',

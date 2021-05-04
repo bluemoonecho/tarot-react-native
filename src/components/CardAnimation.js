@@ -3,8 +3,6 @@ import { StyleSheet, View, Image, Text } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 
 
-
-
 const CardAnimation = ()=> {
 
     const tarotBack = require('../cards-folder/tarotBack.png')
@@ -21,7 +19,6 @@ const CardAnimation = ()=> {
                 easing="ease-out-expo"
                 style={styles.animate}
                 onAnimationEnd={ () => { 
-                    // (event)=> {props.onAnimationEnd(event.target.state)}
                     setAnimation(false)
                     }}
                 >
@@ -32,11 +29,6 @@ const CardAnimation = ()=> {
                 iterationCount={3}
                 easing="ease-out-expo"
                 style={styles.animate}
-                // direction="alternate"
-                // onAnimationEnd='zoomOut'
-                
-                // animate={{ scale: [1, 2, 2, 1, 1], 
-                // rotate: [0, 0, 270, 270, 0]}}
                 >
                 <Image style={styles.image2} source={tarotBack}/>
                 </Animatable.View>
@@ -44,12 +36,7 @@ const CardAnimation = ()=> {
                 animation="slideInLeft" 
                 iterationCount={3}
                 easing="ease-out-expo"
-                style={styles.animate}
-                // direction="alternate"
-                // onAnimationEnd='zoomOut'
-                
-                // animate={{ scale: [1, 2, 2, 1, 1], 
-                // rotate: [0, 0, 270, 270, 0]}}
+                style={styles.animate}s
                 >
                     <Image style={styles.image3} source={tarotBack}/>
                 </Animatable.View>

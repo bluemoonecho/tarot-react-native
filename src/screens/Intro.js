@@ -1,12 +1,10 @@
 import React, {useState} from  'react';
-import {ImageBackground, View,Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
-import { createNavigator } from 'react-navigation';
+import {ImageBackground, View,Text, StyleSheet,TouchableOpacity} from 'react-native';
 import {
     useFonts,
     Lustria_400Regular,
     } from '@expo-google-fonts/lustria';
 import * as Animatable from 'react-native-animatable';
-
 
 
 const Intro = ({navigation}) => {
@@ -19,7 +17,7 @@ const Intro = ({navigation}) => {
 
 
     if (!fontsLoaded) {
-        return <Text>Loading...</Text>;
+        return <Text>Loading...</Text>;yarn
         } else {
     return (
             <View style={styles.introContainer} >
@@ -41,21 +39,22 @@ const Intro = ({navigation}) => {
 
 const styles = StyleSheet.create({
     introContainer: {
+        flex: 1,
         backgroundColor: '#e8e4d9',
         width: '100%',
         height: '100%',
+        justifyContent: 'center',
     },
     container: {
-        marginTop: 50,
+        // marginTop: 50,
+        // justifyContent: 'center',
+        flex: 1,
         alignSelf:'center',
-        top: '25%'
+        top: '30%'
     },
     draw:{ 
         width: 250,
         height: 250,
-        // borderRadius: 250/2,
-        // borderWidth: 1,
-        // borderColor: '#000',
         alignContent: 'center',
         alignSelf:'center',
         justifyContent: 'center',
