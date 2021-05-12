@@ -46,8 +46,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     container: {
-        // marginTop: 50,
-        // justifyContent: 'center',
         flex: 1,
         alignSelf:'center',
         top: '30%'

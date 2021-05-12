@@ -177,23 +177,19 @@ const {ids, styles} = StyleSheet.create({
         height: '100%',
         flexBasis: 'auto',
         flexDirection: 'column',
-        // justifyContent: 'center',
     },
     animation:{
         flex: 1,
         left: 50,
         top: 0,
-        marginTop: '10%',
     },
-    title:{
-        
+    title:{      
         fontSize: 30,
         textAlign: 'center',
         top: '8%',
         fontFamily: 'Lustria_400Regular',
     },
     containerDraw: {
-        
         alignSelf:'center',
         top: '25%'
     },
